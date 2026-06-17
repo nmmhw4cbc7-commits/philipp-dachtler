@@ -23,25 +23,15 @@
             50% { transform: scale(1.1); opacity: 0.25; }
         }
         .selection-blue::selection { background: rgba(59, 130, 246, 0.4); color: white; }
-
-        /* Modal Transitions */
-        #requestModal { transition: opacity 0.3s ease, visibility 0.3s ease; }
-        #requestModal.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        #requestModal:not(.hidden) { opacity: 1; visibility: visible; pointer-events: auto; }
-        .modal-content { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        #requestModal.hidden .modal-content { transform: scale(0.95) translateY(10px); }
-        #requestModal:not(.hidden) .modal-content { transform: scale(1) translateY(0); }
     </style>
 </head>
 <body class="selection-blue">
 
-    <!-- HINTERGRUND EFFEKTE -->
     <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
     <div class="fixed bottom-[10%] right-[-5%] w-[50vw] h-[50vw] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto px-6 md:px-12 py-8 md:py-16 relative z-10">
         
-        <!-- SECTION A: HERO -->
         <header class="mb-12 md:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 pt-6 md:pt-12">
             <div class="flex flex-col items-start">
                 <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-8">
@@ -56,17 +46,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT SIDE: Button & Terminal -->
             <div class="flex flex-col items-end gap-6 self-start md:self-auto w-full md:w-auto">
-                <!-- ANFRAGE BUTTON (Neu Hinzugefügt) -->
-                <button onclick="openModal()" class="group relative px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] transition-all transform hover:-translate-y-0.5 border border-blue-400/20">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        Anfrage stellen
-                    </span>
-                </button>
-
-                <!-- TERMINAL ELEENT -->
                 <div class="hidden lg:flex flex-col w-64 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md overflow-hidden shadow-2xl">
                     <div class="flex items-center justify-between px-3 py-2 bg-white/5 border-b border-white/5">
                         <div class="flex gap-1.5">
@@ -101,7 +81,6 @@
             </div>
         </header>
 
-        <!-- SECTION B: ÜBER MICH -->
         <section id="about" class="mb-24 md:mb-32">
             <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-10">
                 <h2 class="text-4xl font-bold tracking-tight">Über mich</h2>
@@ -135,13 +114,12 @@
                             <span class="text-xs font-mono tracking-widest uppercase">Fokus</span>
                         </div>
                         <p class="text-white font-medium">Hobby-Entwicklung</p>
-                        <p class="text-slate-500 text-sm mt-1">Web-Apps & Design</p>
+                        <p class="text-slate-500 text-sm mt-1">Apps, Websiten, Web-Design</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION C: PROJECTS -->
         <section id="projects">
             <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-12">
                 <h2 class="text-4xl font-bold tracking-tight">Beendete Projekte</h2>
@@ -150,11 +128,9 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10" id="projects-grid">
-                <!-- Projekte werden per JS eingefügt -->
-            </div>
+                </div>
         </section>
 
-        <!-- Footer -->
         <footer class="mt-24 md:mt-40 pb-10 border-t border-white/5 pt-10 flex flex-col items-center gap-10">
             <div class="group cursor-default inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md transition-all hover:border-blue-500/50 hover:bg-white/[0.08]">
                 <span class="relative flex h-2.5 w-2.5">
@@ -181,84 +157,6 @@
                 </div>
             </div>
         </footer>
-    </div>
-
-    <!-- MODAL / POPUP FORMULAR (Dark Theme angepasst) -->
-    <div id="requestModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <!-- Backdrop -->
-        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-            <!-- Modal Panel -->
-            <div class="modal-content relative inline-block align-bottom bg-[#0B1121] border border-white/10 rounded-2xl text-left overflow-hidden shadow-2xl shadow-blue-900/10 transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
-                
-                <!-- Close Button -->
-                <div class="absolute top-4 right-4">
-                    <button type="button" onclick="closeModal()" class="text-slate-400 hover:text-white focus:outline-none bg-white/5 hover:bg-white/10 rounded-full p-2 transition-colors">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
-
-                <div class="px-6 pt-8 pb-6">
-                    <div class="text-center sm:text-left mb-6">
-                        <h3 class="text-2xl font-bold text-white" id="modal-title">Projekt anfragen</h3>
-                        <p class="mt-2 text-sm text-slate-400">
-                            Wählen Sie eine Kategorie und beschreiben Sie kurz Ihr Vorhaben.
-                        </p>
-                    </div>
-
-                    <form action="mailto:philippdachtler01@gmail.com" method="post" enctype="text/plain" class="space-y-5">
-                        
-                        <!-- Dropdown -->
-                        <div>
-                            <label for="service" class="block text-sm font-medium text-slate-300 mb-1.5">Kategorie</label>
-                            <div class="relative">
-                                <select id="service" name="Kategorie" required class="block w-full pl-3 pr-10 py-3 text-base bg-white/5 border border-white/10 text-white rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:text-sm appearance-none">
-                                    <option value="" disabled selected class="bg-slate-900">Bitte wählen...</option>
-                                    <option value="App Entwicklung" class="bg-slate-900">App Entwicklung</option>
-                                    <option value="Website Erstellung" class="bg-slate-900">Website Erstellung</option>
-                                    <option value="Design" class="bg-slate-900">Design</option>
-                                    <option value="Sonstiges" class="bg-slate-900">Sonstiges</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
-                                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-slate-300 mb-1.5">Ihr Name</label>
-                            <input type="text" name="Name" id="name" required class="block w-full px-3 py-3 bg-white/5 border border-white/10 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:text-sm" placeholder="Ihr Name">
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-slate-300 mb-1.5">E-Mail Adresse</label>
-                            <input type="email" name="Email" id="email" required class="block w-full px-3 py-3 bg-white/5 border border-white/10 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:text-sm" placeholder="email@beispiel.de">
-                        </div>
-
-                        <!-- Nachricht -->
-                        <div>
-                            <label for="details" class="block text-sm font-medium text-slate-300 mb-1.5">Details</label>
-                            <textarea id="details" name="Nachricht" rows="4" required class="block w-full px-3 py-3 bg-white/5 border border-white/10 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:text-sm" placeholder="Beschreiben Sie Ihr Projekt..."></textarea>
-                        </div>
-
-                        <div class="pt-2">
-                            <button type="submit" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500 transition-all">
-                                <i data-lucide="send" class="w-4 h-4"></i>
-                                Anfrage absenden
-                            </button>
-                        </div>
-                        <p class="text-[10px] text-center text-slate-500 mt-2">
-                            Öffnet Ihr E-Mail Programm.
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -346,28 +244,6 @@
                 </div>
             `;
             grid.appendChild(card);
-        });
-
-        // MODAL LOGIK
-        const modal = document.getElementById('requestModal');
-
-        function openModal() {
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            // Lucide Icons im Modal neu rendern, falls nötig
-            lucide.createIcons();
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close on Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
-                closeModal();
-            }
         });
     </script>
 </body>
