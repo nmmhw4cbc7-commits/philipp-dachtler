@@ -27,13 +27,11 @@
 </head>
 <body class="selection-blue">
 
-    <!-- HINTERGRUND EFFEKTE -->
     <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
     <div class="fixed bottom-[10%] right-[-5%] w-[50vw] h-[50vw] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto px-6 md:px-12 py-8 md:py-16 relative z-10">
         
-        <!-- SECTION A: HERO -->
         <header class="mb-12 md:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 pt-6 md:pt-12">
             <div class="flex flex-col items-start">
                 <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-8">
@@ -49,7 +47,6 @@
             </div>
         </header>
 
-        <!-- SECTION B: ÜBER MICH -->
         <section id="about" class="mb-24 md:mb-32">
             <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-10">
                 <h2 class="text-4xl font-bold tracking-tight">Über mich</h2>
@@ -89,7 +86,6 @@
             </div>
         </section>
 
-        <!-- SECTION C: PROJECTS -->
         <section id="projects">
             <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-12">
                 <h2 class="text-4xl font-bold tracking-tight">Beendete Projekte</h2>
@@ -98,11 +94,9 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10" id="projects-grid">
-                <!-- Projekte werden per JS eingefügt -->
-            </div>
+                </div>
         </section>
 
-        <!-- Footer -->
         <footer class="mt-24 md:mt-40 pb-10 border-t border-white/5 pt-10 flex flex-col items-center gap-10">
             <div class="group cursor-default inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md transition-all hover:border-blue-500/50 hover:bg-white/[0.08]">
                 <span class="relative flex h-2.5 w-2.5">
@@ -175,6 +169,7 @@
 
         // Projekte Render-Logik
         const projects = [
+            { title: "Jugendkompass", desc: "Erfolgreich abgeschlossenes App-Projekt für die Jugendkompass-Plattform.", tags: ["Native App"], icon: "smartphone", color: "blue", appStoreLink: "https://apps.apple.com/de/app/jugendkompass/id1559123537", googlePlayLink: "https://play.google.com/store/apps/details?id=io.stephanus.jugendkompass&pcampaignid=web_share" },
             { title: "Minimalistischer Planner", desc: "Ein To-Do Planner ohne unnötigen Schnickschnack für besseren Fokus.", tags: ["Web App", "Productivity"], icon: "check-square", color: "cyan", link: "https://nmmhw4cbc7-commits.github.io/to-dos/" },
             { title: "Farb Finder Tool", desc: "Ein Tool um schnell passende Farben und Paletten zu finden.", tags: ["Tool", "Design"], icon: "palette", color: "pink", link: "https://nmmhw4cbc7-commits.github.io/farbfinder/" },
             { title: "Bibelseminar App", desc: "Web-App fürs Bibelseminar, optimiert für das Handy.", tags: ["App", "Mobile"], icon: "smartphone", color: "blue", link: "https://nmmhw4cbc7-commits.github.io/bibelseminar/" },
@@ -195,12 +190,23 @@
             const card = document.createElement('div');
             card.className = `group relative p-8 md:p-10 rounded-3xl bg-white/[0.02] backdrop-blur-2xl border border-white/[0.08] transition-all duration-500 flex flex-col h-full ${c.border} ${c.shadow}`;
             
+            // Generiere Link-HTML flexibel je nachdem, ob es direkte Links oder Store-Links gibt
+            let linksHtml = '';
+            if (p.link) {
+                linksHtml = `<a href="${p.link}" target="_blank" class="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-2 group-hover:translate-x-0 p-2 hover:bg-white/10 rounded-full"><i data-lucide="external-link" class="w-5 h-5 text-slate-400 hover:text-white"></i></a>`;
+            } else {
+                if (p.appStoreLink) linksHtml += `<a href="${p.appStoreLink}" target="_blank" class="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-2 group-hover:translate-x-0 p-2 hover:bg-white/10 rounded-full inline-block" title="App Store"><i data-lucide="apple" class="w-5 h-5 text-slate-400 hover:text-white"></i></a>`;
+                if (p.googlePlayLink) linksHtml += `<a href="${p.googlePlayLink}" target="_blank" class="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-2 group-hover:translate-x-0 p-2 hover:bg-white/10 rounded-full inline-block" title="Google Play"><i data-lucide="play" class="w-5 h-5 text-slate-400 hover:text-white"></i></a>`;
+            }
+            
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-8">
                     <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 ${c.icon} group-hover:scale-110 transition-transform duration-500">
                         <i data-lucide="${p.icon}" class="w-6 h-6"></i>
                     </div>
-                    ${p.link ? `<a href="${p.link}" target="_blank" class="opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-2 group-hover:translate-x-0 p-2 hover:bg-white/10 rounded-full"><i data-lucide="external-link" class="w-5 h-5 text-slate-400 hover:text-white"></i></a>` : ''}
+                    <div class="flex gap-1">
+                        ${linksHtml}
+                    </div>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">${p.title}</h3>
                 <p class="text-slate-400 text-base leading-relaxed mb-8 font-light">${p.desc}</p>
