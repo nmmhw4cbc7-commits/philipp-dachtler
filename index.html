@@ -64,8 +64,17 @@
         }
 
         h1 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em; margin-bottom: 1rem; }
-        h2 { font-size: 2rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+        
+        h2 { 
+            font-size: 2rem; 
+            margin-bottom: 2.5rem; /* Angepasst für die visuelle Balance aus dem Screenshot */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; /* Zentriert die Überschrift relativ zur Trennlinie */
+            gap: 0.75rem; 
+        }
         h2::before { content: ""; display: block; width: 24px; height: 2px; background-color: var(--text-primary); }
+        
         h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
         
         p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.05rem; }
@@ -79,8 +88,8 @@
         }
 
         section {
-            /* COOKED: Replaced glued 6rem padding with dynamic viewport clamp */
-            padding: clamp(8rem, 16vh, 14rem) 0;
+            /* Dynamisches Spacing, aber deutlich enger gefasst (Desktop ~100px statt vorher bis zu 224px) */
+            padding: clamp(4.5rem, 8vh, 7rem) 0;
             border-bottom: 1px solid var(--border-subtle);
         }
 
@@ -219,7 +228,16 @@
 
         /* === SKILLS === */
         .skill-group { margin-bottom: 2rem; }
-        .skill-group h3 { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        .skill-group:last-child { margin-bottom: 0; }
+        
+        .skill-group h3 { 
+            font-size: 0.85rem; 
+            color: var(--text-secondary); 
+            margin-bottom: 0.75rem; /* Dichter an den Tags positioniert */
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+        }
         
         .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
         .tag {
@@ -235,12 +253,11 @@
         }
         
         .overall-level {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            border-left: 2px solid var(--border-hover);
-            padding-left: 1rem;
+            /* Linken Sektionsstrich und Padding für den bündigen Screenshot-Look entfernt */
         }
 
         /* === PROJECTS === */
@@ -345,7 +362,7 @@
             font-size: 0.9rem;
         }
 
-        /* === ANIMATIONS (COOKED: High-End Glass Reveal) === */
+        /* === ANIMATIONS === */
         .fade-in {
             opacity: 0;
             transform: translateY(35px);
@@ -365,7 +382,7 @@
         /* === MOBILE RESPONSIVENESS === */
         @media (max-width: 768px) {
             .grid-2 { grid-template-columns: 1fr; gap: 2rem; }
-            section { padding: 5rem 0; }
+            section { padding: 3.5rem 0; } /* Exakt die knackigen ~56px Abstand aus dem Screenshot */
             .nav-links { display: none; }
             .contact-links { flex-direction: column; }
         }
@@ -592,7 +609,7 @@
 
 
         /* ==========================================
-           COOKED: THE CANVAS REVEAL MATRIX ENGINE
+            COOKED: THE CANVAS REVEAL MATRIX ENGINE
         ========================================== */
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
