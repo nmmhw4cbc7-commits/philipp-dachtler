@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philipp Dachtler | Fullstack Developer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* === CSS VARIABLES === */
+        :root {
+            --bg-base: #09090b; /* Deep zinc */
+            --bg-surface: #18181b;
+            --bg-hover: #27272a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --border-subtle: #27272a;
+            --border-hover: #3f3f46;
+            --font-head: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === TYPOGRAPHY === */
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.02em; margin-bottom: 1rem; }
+        h2 { font-size: 2rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+        h2::before { content: ""; display: block; width: 24px; height: 2px; background-color: var(--text-primary); }
+        h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        
+        p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.05rem; }
+        a { color: var(--text-primary); text-decoration: none; transition: var(--transition); }
+        
+        /* === LAYOUT === */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        section:last-of-type { border-bottom: none; }
+
+        /* === NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* === HERO SECTION === */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem; /* offset for nav */
+            border-bottom: none;
+        }
+
+        .hero-title-tag {
+            display: inline-block;
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-subtle);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            border: 1px solid var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            background-color: var(--bg-surface);
+        }
+
+        /* === GRIDS & CARDS === */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+        .card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background: var(--bg-surface);
+        }
+
+        /* === SKILLS === */
+        .skill-group { margin-bottom: 2rem; }
+        .skill-group h3 { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .tag {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .overall-level {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-left: 2px solid var(--border-hover);
+            padding-left: 1rem;
+        }
+
+        /* === PROJECTS === */
+        .project-tech {
+            font-family: var(--font-head);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-links {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .project-link:hover {
+            border-bottom-color: var(--text-primary);
+        }
+
+        /* === LISTS (Experience & Goals) === */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-hover);
+        }
+
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 24px;
+            bottom: -2rem;
+            width: 2px;
+            background: var(--border-subtle);
+        }
+
+        .timeline-item:last-child::after { display: none; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item p { margin-bottom: 0; }
+        .timeline-sub { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+        /* === CONTACT === */
+        .contact-wrap {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-links a {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+        }
+
+        .contact-links a:hover {
+            background: var(--bg-surface);
+            border-color: var(--border-hover);
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* === ANIMATIONS === */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === MOBILE RESPONSIVENESS === */
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; gap: 2rem; }
+            section { padding: 4rem 0; }
+            .nav-links { display: none; /* Keep simple on mobile */ }
+            .contact-links { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="nav-logo">PD.</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="container">
+        <div class="fade-in">
+            <span class="hero-title-tag">Fullstack Developer</span>
+            <h1>Philipp Dachtler</h1>
+            <p class="hero-subtitle">
+                Hey, I’m Philipp Dachtler, a young Fullstack Developer from Schifferstadt, Germany. I am currently training as an IT specialist in system integration and aim to fully dive into fullstack and AI development in the future.
+            </p>
+            <div class="button-group">
+                <a href="#projects" class="btn btn-primary">
+                    View Projects <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container fade-in">
+        <div class="grid-2">
+            <div>
+                <h2>About Me</h2>
+            </div>
+            <div>
+                <p>
+                    My professional foundation is rooted in network administration, managing infrastructure while actively completing my apprenticeship as an IT Specialist in System Integration in Mannheim. 
+                </p>
+                <p>
+                    However, my true passion lies in software engineering. I focus on building modern, highly functional, and practical applications within efficient macOS environments like Windsurf. Alongside my personal fullstack projects, I design and develop custom websites and homepages for clients upon request, ensuring every product is both reliable and user-centric.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="container fade-in">
+        <h2>Technical Stack</h2>
+        <div class="grid-2">
+            <div class="skill-group">
+                <h3>Languages</h3>
+                <div class="tags">
+                    <span class="tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="tag"><i class="fa-brands fa-python"></i> Python</span>
+                    <span class="tag"><i class="fa-brands fa-java"></i> Java</span>
+                    <span class="tag"><i class="fa-solid fa-code"></i> TypeScript</span>
+                    <span class="tag"><i class="fa-solid fa-c"></i> C#</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <h3>Frameworks & Technologies</h3>
+                <div class="tags">
+                    <span class="tag"><i class="fa-brands fa-react"></i> React</span>
+                    <span class="tag"><i class="fa-solid fa-mobile-screen"></i> Flutter</span>
+                    <span class="tag"><i class="fa-brands fa-swift"></i> Swift</span>
+                    <span class="tag"><i class="fa-brands fa-docker"></i> Docker</span>
+                    <span class="tag"><i class="fa-brands fa-node-js"></i> Node.js</span>
+                </div>
+            </div>
+        </div>
+        <div class="overall-level">
+            <strong>Overall Proficiency:</strong> Intermediate
+        </div>
+    </section>
+
+    <section id="projects" class="container fade-in">
+        <h2>Selected Projects</h2>
+        <div class="grid-3">
+            
+            <div class="card">
+                <div class="project-tech">Flutter</div>
+                <h3>Jugendkompass App</h3>
+                <p>A beautifully designed Christian companion application built to support daily faith life and engagement.</p>
+                <div class="project-links">
+                    <a href="https://apps.apple.com/de/app/jugendkompass/id1559123537" target="_blank" class="project-link">
+                        <i class="fa-brands fa-apple"></i> App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=io.stephanus.jugendkompass" target="_blank" class="project-link">
+                        <i class="fa-brands fa-google-play"></i> Play Store
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="project-tech">Flutter</div>
+                <h3>Attendix App</h3>
+                <p>An efficient attendance tracking application tailored for clubs and community groups. (Contributed to publishing).</p>
+                <div class="project-links">
+                    <a href="https://apps.apple.com/us/app/attendix/id6771119302" target="_blank" class="project-link">
+                        <i class="fa-brands fa-apple"></i> App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=io.stephanus.attendix" target="_blank" class="project-link">
+                        <i class="fa-brands fa-google-play"></i> Play Store
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="project-tech">Concept / Active Development</div>
+                <h3>Unified Email App</h3>
+                <p>A conceptualized primary application designed to seamlessly combine multiple email accounts from different providers into a single, unified interface.</p>
+                <div class="project-links">
+                    <span class="project-link" style="color: var(--text-secondary); border: none;">
+                        <i class="fa-solid fa-lock"></i> In Development
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="experience" class="container fade-in">
+        <div class="grid-2">
+            <div>
+                <h2>Experience & Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Network Administration</h3>
+                        <p>Current Role</p>
+                        <div class="timeline-sub">Managing local infrastructure and hardware deployments.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>IT Specialist in System Integration</h3>
+                        <p>Vocational Training — Mannheim</p>
+                        <div class="timeline-sub">Apprenticeship focusing on system architecture and integration.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Cisco Networking Academy</h3>
+                        <p>Certification</p>
+                        <div class="timeline-sub">CCNA: Introduction to Networks</div>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Secondary School Certificate</h3>
+                        <p>Mittlere Reife</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h2 style="margin-top: 0;">Goals & Strengths</h2>
+                
+                <div style="margin-bottom: 2.5rem;">
+                    <h3>Core Strengths</h3>
+                    <p>
+                        I approach development with a strong focus on <strong>reliability and usability</strong>. Rather than over-engineering solutions, I prioritize building modern, practical, and functional applications—ranging from minimalist task planners to progressive web tools—that genuinely solve user problems.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Future Trajectory</h3>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-arrow-trend-up" style="margin-right: 10px;"></i> Specializing deeper into AI and Cloud technologies.</li>
+                        <li><i class="fa-solid fa-laptop-code" style="margin-right: 10px;"></i> Establishing a career as a professional Fullstack Developer.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container fade-in" style="border: none;">
+        <div class="contact-wrap">
+            <h2>Let's build something.</h2>
+            <p>Currently available for freelance projects and tech discussions.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:allgemein@philipp-dachtler.de">
+                    <i class="fa-solid fa-envelope"></i> allgemein@philipp-dachtler.de
+                </a>
+                <a href="https://github.com/nmmhw4cbc7-commits" target="_blank">
+                    <i class="fa-brands fa-github"></i> GitHub Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Philipp Dachtler. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Intersection Observer for scroll fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Run once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
